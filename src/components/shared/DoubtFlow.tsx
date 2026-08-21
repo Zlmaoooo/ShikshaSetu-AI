@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "motion/react";
 
 import {
   getAllDoubts,
@@ -32,6 +33,8 @@ import {
   User,
   Upload,
   Clipboard,
+  Atom,
+  Zap,
 } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -404,147 +407,200 @@ export function DoubtFlow({
   // ─────────────────────────────────────────────────────────────────────────
 
   return (
-    <div className="min-h-screen bg-background font-sans text-foreground">
-      {/* SELECT PHASE */}
-      {phase === "select" && (
-        <div className="min-h-screen flex flex-col">
-          <TopBar lang={lang} onLangChange={setLang} />
+    <div className="min-h-screen bg-background font-sans text-foreground overflow-x-hidden relative flex flex-col">
+      {/* Permanent Ambient Background Grid & Glows - Instant Render */}
+      <div className="absolute inset-0 bg-[radial-gradient(#C5C984_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-65 pointer-events-none z-0" />
+      <div className="absolute top-1/4 -left-24 w-[450px] h-[450px] bg-primary/25 rounded-full blur-[100px] pointer-events-none z-0" />
+      <div className="absolute bottom-1/4 -right-24 w-[450px] h-[450px] bg-secondary/25 rounded-full blur-[100px] pointer-events-none z-0" />
 
-          <div className="flex-1 flex flex-col items-center justify-center max-w-2xl w-full mx-auto px-5 -mt-12 pb-16">
-            {/* Hero text */}
-            <div className="mb-8 text-center w-full">
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-border bg-muted text-muted-foreground text-xs font-medium mb-4">
-                <Sparkles className="h-3.5 w-3.5" />
-                {lang === "en" ? "AI-powered doubt solving" : "AI-চালিত সন্দেহ সমাধান"}
+      {/* Persistent Floating Science Watermarks */}
+      <div className="hidden md:block absolute top-28 left-[10%] text-foreground/15 pointer-events-none z-0">
+        <Atom className="h-16 w-16 animate-pulse" />
+      </div>
+
+      <div className="hidden md:block absolute top-36 right-[10%] text-foreground/15 pointer-events-none z-0">
+        <Brain className="h-16 w-16 animate-pulse" />
+      </div>
+
+      <div className="hidden md:block absolute bottom-28 left-[12%] text-foreground/15 pointer-events-none z-0">
+        <BookOpen className="h-14 w-14 animate-pulse" />
+      </div>
+
+      <div className="hidden md:block absolute bottom-32 right-[12%] text-foreground/15 pointer-events-none z-0">
+        <Sparkles className="h-14 w-14 animate-pulse" />
+      </div>
+
+      {/* Persistent Top Navbar - Zero Delay */}
+      <div className="relative z-10">
+        <TopBar lang={lang} onLangChange={setLang} />
+      </div>
+
+      <div className="flex-1 flex flex-col relative z-10">
+        <AnimatePresence mode="wait" initial={false}>
+          {/* SELECT PHASE */}
+          {phase === "select" && (
+            <motion.div
+              key="select"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="flex-1 flex flex-col items-center justify-center max-w-2xl w-full mx-auto px-5 -mt-12 pb-16"
+            >
+              {/* Hero text */}
+              <div className="mb-8 text-center w-full">
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-border bg-muted text-muted-foreground text-xs font-medium mb-4">
+                  <Sparkles className="h-3.5 w-3.5 text-primary" />
+                  {lang === "en" ? "AI-powered doubt solving" : "AI-চালিত সন্দেহ সমাধান"}
+                </div>
+                <h1 className="text-4xl font-bold tracking-tight mb-3">
+                  {lang === "en" ? "What's your doubt?" : "আপোনাৰ সন্দেহ কি?"}
+                </h1>
+                <p className="text-muted-foreground text-base">
+                  {lang === "en"
+                    ? "Type your question below to get instant AI help"
+                    : "তাতক্ষণিক AI সহায়ৰ বাবে তলত আপোনাৰ প্ৰশ্ন লিখক"}
+                </p>
               </div>
-              <h1 className="text-4xl font-bold tracking-tight mb-3">
-                {lang === "en" ? "What's your doubt?" : "আপোনাৰ সন্দেহ কি?"}
-              </h1>
-              <p className="text-muted-foreground text-base">
-                {lang === "en"
-                  ? "Type your question below to get instant AI help"
-                  : "তাতক্ষণিক AI সহায়ৰ বাবে তলত আপোনাৰ প্ৰশ্ন লিখক"}
+
+              {/* Quick Actions (Upload & Link) */}
+              <div className="grid grid-cols-2 gap-4 w-full max-w-xl mb-5">
+                <motion.button
+                  type="button"
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    const input = document.createElement("input");
+                    input.type = "file";
+                    input.accept = "image/*,.pdf,.doc,.docx,.mp3,.mp4";
+                    input.onchange = (e) => {
+                      const file = (e.target as HTMLInputElement).files?.[0];
+                      if (file) {
+                        setFreeText(`[Uploaded: ${file.name}]`);
+                      }
+                    };
+                    input.click();
+                  }}
+                  className="p-4 rounded-2xl border border-border bg-card hover:border-primary hover:bg-muted/40 transition-all text-left flex flex-col justify-between cursor-pointer group shadow-xs"
+                >
+                  <div className="h-9 w-9 rounded-xl bg-muted/60 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <Upload className="h-5 w-5 text-foreground group-hover:text-primary transition-colors" />
+                  </div>
+                  <div className="mt-4">
+                    <p className="font-semibold text-sm text-foreground">
+                      {lang === "en" ? "Upload" : "আপলোড"}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {lang === "en" ? "File, audio, video" : "ফাইল, অডিঅ', ভিডিঅ'"}
+                    </p>
+                  </div>
+                </motion.button>
+
+                <motion.button
+                  type="button"
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={async () => {
+                    try {
+                      const text = await navigator.clipboard.readText();
+                      if (text) {
+                        setFreeText(text);
+                      }
+                    } catch {
+                      const pasted = prompt(
+                        lang === "en" ? "Paste text here:" : "ইয়াত পাঠ পেষ্ট কৰক:"
+                      );
+                      if (pasted) {
+                        setFreeText(pasted);
+                      }
+                    }
+                  }}
+                  className="p-4 rounded-2xl border border-border bg-card hover:border-primary hover:bg-muted/40 transition-all text-left flex flex-col justify-between cursor-pointer group shadow-xs"
+                >
+                  <div className="h-9 w-9 rounded-xl bg-muted/60 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <Clipboard className="h-5 w-5 text-foreground group-hover:text-primary transition-colors" />
+                  </div>
+                  <div className="mt-4">
+                    <p className="font-semibold text-sm text-foreground">
+                      {lang === "en" ? "Paste" : "পেষ্ট"}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {lang === "en" ? "Copied Text" : "কপি কৰা পাঠ"}
+                    </p>
+                  </div>
+                </motion.button>
+              </div>
+
+              {/* Free-text input */}
+              <form onSubmit={handleFreeTextSubmit} className="relative w-full max-w-xl">
+                <input
+                  type="text"
+                  value={freeText}
+                  onChange={(e) => { setFreeText(e.target.value); setNoMatch(false); }}
+                  placeholder={
+                    lang === "en"
+                      ? "Type your question here…"
+                      : "ইয়াত আপোনাৰ প্ৰশ্ন লিখক…"
+                  }
+                  className="w-full px-5 py-3.5 pr-14 rounded-xl border border-input bg-card text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring shadow-xs"
+                />
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.92 }}
+                  aria-label={lang === "en" ? "Ask question" : "প্ৰশ্ন সোধক"}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 h-8.5 w-10 px-0 justify-center flex items-center bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all shadow-xs"
+                >
+                  <SendHorizontal className="h-4 w-4" />
+                </motion.button>
+              </form>
+
+              {/* No-match fallback */}
+              {noMatch && (
+                <div className="mt-4 w-full max-w-xl px-4 py-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-900 font-medium text-sm leading-relaxed text-center">
+                  {tx(noMatchFallback)}
+                </div>
+              )}
+            </motion.div>
+          )}
+
+        {/* THINKING PHASE */}
+        {phase === "thinking" && (
+          <motion.div
+            key="thinking"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+            className="min-h-screen flex flex-col items-center justify-center gap-5 p-6"
+          >
+            <div className="relative flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
+              <div className="h-16 w-16 rounded-2xl bg-card border border-border shadow-xs flex items-center justify-center relative z-10">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            </div>
+            <div className="text-center space-y-1.5 max-w-sm">
+              <p className="font-bold text-lg text-foreground">
+                {lang === "en" ? "Analyzing your doubt…" : "আপোনাৰ সন্দেহ বিশ্লেষণ কৰা হৈছে…"}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {lang === "en" ? "Retrieving textbook evidence & generating explanation" : "পাঠ্যপুথিৰ তথ্য সংগ্ৰহ কৰি ব্যাখ্যা প্ৰস্তুত কৰা হৈছে"}
               </p>
             </div>
+          </motion.div>
+        )}
 
-            {/* Quick Actions (Upload & Link) */}
-            <div className="grid grid-cols-2 gap-4 w-full max-w-xl mb-5">
-              <button
-                type="button"
-                onClick={() => {
-                  const input = document.createElement("input");
-                  input.type = "file";
-                  input.accept = "image/*,.pdf,.doc,.docx,.mp3,.mp4";
-                  input.onchange = (e) => {
-                    const file = (e.target as HTMLInputElement).files?.[0];
-                    if (file) {
-                      setFreeText(`[Uploaded: ${file.name}]`);
-                    }
-                  };
-                  input.click();
-                }}
-                className="p-4 rounded-2xl border border-border bg-card hover:border-primary hover:bg-muted/40 transition-all text-left flex flex-col justify-between cursor-pointer group shadow-xs"
-              >
-                <div className="h-9 w-9 rounded-xl bg-muted/60 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                  <Upload className="h-5 w-5 text-foreground group-hover:text-primary transition-colors" />
-                </div>
-                <div className="mt-4">
-                  <p className="font-semibold text-sm text-foreground">
-                    {lang === "en" ? "Upload" : "আপলোড"}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-0.5">
-                    {lang === "en" ? "File, audio, video" : "ফাইল, অডিঅ', ভিডিঅ'"}
-                  </p>
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={async () => {
-                  try {
-                    const text = await navigator.clipboard.readText();
-                    if (text) {
-                      setFreeText(text);
-                    }
-                  } catch {
-                    const pasted = prompt(
-                      lang === "en" ? "Paste text here:" : "ইয়াত পাঠ পেষ্ট কৰক:"
-                    );
-                    if (pasted) {
-                      setFreeText(pasted);
-                    }
-                  }
-                }}
-                className="p-4 rounded-2xl border border-border bg-card hover:border-primary hover:bg-muted/40 transition-all text-left flex flex-col justify-between cursor-pointer group shadow-xs"
-              >
-                <div className="h-9 w-9 rounded-xl bg-muted/60 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                  <Clipboard className="h-5 w-5 text-foreground group-hover:text-primary transition-colors" />
-                </div>
-                <div className="mt-4">
-                  <p className="font-semibold text-sm text-foreground">
-                    {lang === "en" ? "Paste" : "পেষ্ট"}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-0.5">
-                    {lang === "en" ? "Copied Text" : "কপি কৰা পাঠ"}
-                  </p>
-                </div>
-              </button>
-            </div>
-
-            {/* Free-text input */}
-            <form onSubmit={handleFreeTextSubmit} className="relative w-full max-w-xl">
-              <input
-                type="text"
-                value={freeText}
-                onChange={(e) => { setFreeText(e.target.value); setNoMatch(false); }}
-                placeholder={
-                  lang === "en"
-                    ? "Type your question here…"
-                    : "ইয়াত আপোনাৰ প্ৰশ্ন লিখক…"
-                }
-                className="w-full px-5 py-3.5 pr-14 rounded-xl border border-input bg-card text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring shadow-xs"
-              />
-              <Button
-                type="submit"
-                size="sm"
-                aria-label={lang === "en" ? "Ask question" : "প্ৰশ্ন সোধক"}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 h-8.5 w-10 px-0 justify-center flex items-center"
-              >
-                <SendHorizontal className="h-4 w-4" />
-              </Button>
-            </form>
-
-            {/* No-match fallback */}
-            {noMatch && (
-              <div className="mt-4 w-full max-w-xl px-4 py-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-900 font-medium text-sm leading-relaxed text-center">
-                {tx(noMatchFallback)}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* THINKING PHASE */}
-      {phase === "thinking" && (
-        <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <div className="text-center space-y-1">
-            <p className="font-semibold text-base">
-              {lang === "en" ? "Analyzing your doubt…" : "আপোনাৰ সন্দেহ বিশ্লেষণ কৰা হৈছে…"}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {lang === "en" ? "Finding the best explanation" : "সৰ্বোত্তম ব্যাখ্যা বিচাৰি আছে"}
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* RESULT PHASE */}
-      {phase === "result" && selectedDoubt && (
-        <div className="min-h-screen">
-          <TopBar lang={lang} onLangChange={setLang} />
-
-          <div className="max-w-2xl mx-auto px-5 py-8 space-y-5 pb-24">
+        {/* RESULT PHASE */}
+        {phase === "result" && selectedDoubt && (
+          <motion.div
+            key="result"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.35 }}
+          >
+            <div className="max-w-2xl mx-auto px-5 py-8 space-y-5 pb-24">
             {/* Selected doubt header */}
             <div className="flex items-start gap-3 px-4 py-3 rounded-lg bg-muted/40 border border-border">
               <Brain className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
@@ -849,8 +905,10 @@ export function DoubtFlow({
               </Card>
             )}
           </div>
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
+    </div>
     </div>
   );
 }

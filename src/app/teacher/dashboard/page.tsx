@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion, type Variants } from "motion/react";
 import {
   getTeacherInsights,
   getClassConceptMastery,
@@ -38,10 +39,38 @@ export default function TeacherDashboardPage() {
     (conceptMastery.length || 1);
   const classAvgPct = Math.round(totalAvg * 100);
 
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.05,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4 },
+    },
+  };
+
   return (
-    <main className="max-w-6xl mx-auto px-6 py-8 space-y-8 pb-20">
+    <motion.main
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="max-w-6xl mx-auto px-6 py-8 space-y-8 pb-20"
+    >
       {/* Header Banner */}
-      <div className="rounded-2xl border border-border bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xs">
+      <motion.div
+        variants={itemVariants}
+        className="rounded-2xl border border-border bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xs"
+      >
         <div className="space-y-2">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-muted text-xs font-semibold text-muted-foreground">
             <School className="h-3.5 w-3.5 text-primary" />
@@ -65,89 +94,97 @@ export default function TeacherDashboardPage() {
             <span>Generate Quiz</span>
           </Button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Top 4 Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Stat 1: Class Average */}
-        <Card className="border-border bg-card">
-          <CardContent className="pt-5 pb-5 flex items-center gap-4">
-            <div className="h-11 w-11 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center flex-shrink-0">
-              <TrendingUp className="h-5 w-5 text-primary" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Class Average Mastery
-              </p>
-              <div className="flex items-baseline gap-2 mt-0.5">
-                <span className="text-2xl font-bold tabular-nums">{classAvgPct}%</span>
-                <Badge variant="outline" className="text-[10px] border-primary text-primary px-1.5 py-0 font-semibold">
-                  Developing
-                </Badge>
+        <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+          <Card className="border-border bg-card">
+            <CardContent className="pt-5 pb-5 flex items-center gap-4">
+              <div className="h-11 w-11 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center flex-shrink-0">
+                <TrendingUp className="h-5 w-5 text-primary" />
               </div>
-            </div>
-          </CardContent>
-        </Card>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Class Average Mastery
+                </p>
+                <div className="flex items-baseline gap-2 mt-0.5">
+                  <span className="text-2xl font-bold tabular-nums">{classAvgPct}%</span>
+                  <Badge variant="outline" className="text-[10px] border-primary text-primary px-1.5 py-0 font-semibold">
+                    Developing
+                  </Badge>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Stat 2: At-Risk Alerts */}
-        <Card className="border-border bg-card">
-          <CardContent className="pt-5 pb-5 flex items-center gap-4">
-            <div className="h-11 w-11 rounded-xl bg-red-500/15 border border-red-500/30 flex items-center justify-center flex-shrink-0">
-              <AlertTriangle className="h-5 w-5 text-red-600 dark:text-red-400" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                At-Risk Students
-              </p>
-              <div className="flex items-baseline gap-2 mt-0.5">
-                <span className="text-2xl font-bold tabular-nums text-red-600 dark:text-red-400">
-                  {atRisk.length}
-                </span>
-                <span className="text-xs text-muted-foreground">Require intervention</span>
+        <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+          <Card className="border-border bg-card">
+            <CardContent className="pt-5 pb-5 flex items-center gap-4">
+              <div className="h-11 w-11 rounded-xl bg-red-500/15 border border-red-500/30 flex items-center justify-center flex-shrink-0">
+                <AlertTriangle className="h-5 w-5 text-red-600 dark:text-red-400" />
               </div>
-            </div>
-          </CardContent>
-        </Card>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  At-Risk Students
+                </p>
+                <div className="flex items-baseline gap-2 mt-0.5">
+                  <span className="text-2xl font-bold tabular-nums text-red-600 dark:text-red-400">
+                    {atRisk.length}
+                  </span>
+                  <span className="text-xs text-muted-foreground">Require intervention</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Stat 3: Top Performer Highlight */}
-        <Card className="border-border bg-card">
-          <CardContent className="pt-5 pb-5 flex items-center gap-4">
-            <div className="h-11 w-11 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
-              <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                On-Track Highlight
-              </p>
-              <div className="flex items-baseline gap-2 mt-0.5">
-                <span className="text-lg font-bold truncate">{onTrack.studentName}</span>
-                <span className="text-xs text-emerald-600 font-semibold">88%</span>
+        <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+          <Card className="border-border bg-card">
+            <CardContent className="pt-5 pb-5 flex items-center gap-4">
+              <div className="h-11 w-11 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
+                <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
               </div>
-            </div>
-          </CardContent>
-        </Card>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  On-Track Highlight
+                </p>
+                <div className="flex items-baseline gap-2 mt-0.5">
+                  <span className="text-lg font-bold truncate">{onTrack.studentName}</span>
+                  <span className="text-xs text-emerald-600 font-semibold">88%</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Stat 4: Misconceptions Detected */}
-        <Card className="border-border bg-card">
-          <CardContent className="pt-5 pb-5 flex items-center gap-4">
-            <div className="h-11 w-11 rounded-xl bg-secondary/15 border border-secondary/30 flex items-center justify-center flex-shrink-0">
-              <Brain className="h-5 w-5 text-secondary" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Active Misconceptions
-              </p>
-              <div className="flex items-baseline gap-2 mt-0.5">
-                <span className="text-2xl font-bold tabular-nums">1 Key</span>
-                <span className="text-xs text-muted-foreground">Open Circuit Pattern</span>
+        <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+          <Card className="border-border bg-card">
+            <CardContent className="pt-5 pb-5 flex items-center gap-4">
+              <div className="h-11 w-11 rounded-xl bg-secondary/15 border border-secondary/30 flex items-center justify-center flex-shrink-0">
+                <Brain className="h-5 w-5 text-secondary" />
               </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Active Misconceptions
+                </p>
+                <div className="flex items-baseline gap-2 mt-0.5">
+                  <span className="text-2xl font-bold tabular-nums">1 Key</span>
+                  <span className="text-xs text-muted-foreground">Open Circuit Pattern</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
 
       {/* Main Grid: At-Risk Interventions & Class Analytics */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* At-Risk Students & Targeted Interventions (2 Cols) */}
         <div id="at-risk" className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
@@ -162,65 +199,67 @@ export default function TeacherDashboardPage() {
 
           <div className="space-y-4">
             {atRisk.map((student) => (
-              <Card key={student.studentId} className="border-border bg-card overflow-hidden">
-                <CardHeader className="pb-3 pt-5 border-b border-border bg-muted/20">
-                  <div className="flex items-center justify-between flex-wrap gap-2">
-                    <div className="flex items-center gap-3">
-                      <span className="font-bold text-base text-foreground">
-                        {student.studentName}
+              <motion.div key={student.studentId} whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+                <Card className="border-border bg-card overflow-hidden shadow-xs">
+                  <CardHeader className="pb-3 pt-5 border-b border-border bg-muted/20">
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <div className="flex items-center gap-3">
+                        <span className="font-bold text-base text-foreground">
+                          {student.studentName}
+                        </span>
+                        <Badge
+                          variant="outline"
+                          className={
+                            student.riskLevel === "high"
+                              ? "border-red-500 text-red-600 bg-red-500/10 font-bold uppercase text-[10px]"
+                              : "border-amber-500 text-amber-700 bg-amber-500/10 font-bold uppercase text-[10px]"
+                          }
+                        >
+                          {student.riskLevel} Risk
+                        </Badge>
+                      </div>
+                      <span className="text-xs font-mono text-muted-foreground">
+                        Pattern: {student.misconceptionPattern}
                       </span>
-                      <Badge
-                        variant="outline"
-                        className={
-                          student.riskLevel === "high"
-                            ? "border-red-500 text-red-600 bg-red-500/10 font-bold uppercase text-[10px]"
-                            : "border-amber-500 text-amber-700 bg-amber-500/10 font-bold uppercase text-[10px]"
-                        }
-                      >
-                        {student.riskLevel} Risk
-                      </Badge>
                     </div>
-                    <span className="text-xs font-mono text-muted-foreground">
-                      Pattern: {student.misconceptionPattern}
-                    </span>
-                  </div>
-                </CardHeader>
+                  </CardHeader>
 
-                <CardContent className="p-6 space-y-4">
-                  {/* Identified Misconception / Reason */}
-                  <div className="space-y-1.5">
-                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                      <Brain className="h-3.5 w-3.5 text-secondary" />
-                      <span>Identified Learning Gap / Misconception</span>
+                  <CardContent className="p-6 space-y-4">
+                    {/* Identified Misconception / Reason */}
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                        <Brain className="h-3.5 w-3.5 text-secondary" />
+                        <span>Identified Learning Gap / Misconception</span>
+                      </div>
+                      <p className="text-sm leading-relaxed text-foreground bg-muted/30 p-3.5 rounded-xl border border-border">
+                        {student.reason.en}
+                      </p>
                     </div>
-                    <p className="text-sm leading-relaxed text-foreground bg-muted/30 p-3.5 rounded-xl border border-border">
-                      {student.reason.en}
-                    </p>
-                  </div>
 
-                  {/* Recommended Action / Intervention */}
-                  <div className="space-y-1.5">
-                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
-                      <Lightbulb className="h-3.5 w-3.5 text-primary" />
-                      <span>Recommended Classroom Intervention</span>
+                    {/* Recommended Action / Intervention */}
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
+                        <Lightbulb className="h-3.5 w-3.5 text-primary" />
+                        <span>Recommended Classroom Intervention</span>
+                      </div>
+                      <div className="p-3.5 rounded-xl border border-primary/30 bg-primary/10 text-sm text-foreground leading-relaxed">
+                        {student.recommendedIntervention.en}
+                      </div>
                     </div>
-                    <div className="p-3.5 rounded-xl border border-primary/30 bg-primary/10 text-sm text-foreground leading-relaxed">
-                      {student.recommendedIntervention.en}
-                    </div>
-                  </div>
 
-                  {/* Actions Bar */}
-                  <div className="pt-2 flex items-center justify-between flex-wrap gap-2">
-                    <Button variant="outline" size="sm" className="text-xs gap-1.5">
-                      <Zap className="h-3.5 w-3.5 text-secondary" />
-                      <span>Assign Practice Remediation</span>
-                    </Button>
-                    <span className="text-xs text-muted-foreground">
-                      Student ID: {student.studentId}
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
+                    {/* Actions Bar */}
+                    <div className="pt-2 flex items-center justify-between flex-wrap gap-2">
+                      <Button variant="outline" size="sm" className="text-xs gap-1.5">
+                        <Zap className="h-3.5 w-3.5 text-secondary" />
+                        <span>Assign Practice Remediation</span>
+                      </Button>
+                      <span className="text-xs text-muted-foreground">
+                        Student ID: {student.studentId}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -253,10 +292,12 @@ export default function TeacherDashboardPage() {
                         </span>
                       </div>
                       <div className="h-2 rounded-full bg-muted overflow-hidden">
-                        <div
-                          className="h-full rounded-full transition-all"
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${pct}%` }}
+                          transition={{ duration: 0.8, ease: "easeOut" }}
+                          className="h-full rounded-full"
                           style={{
-                            width: `${pct}%`,
                             backgroundColor: isLow ? "#e35d5d" : "#3EC1D3",
                           }}
                         />
@@ -275,24 +316,26 @@ export default function TeacherDashboardPage() {
               <span>Peer-Tutoring Recommendation</span>
             </h2>
 
-            <Card className="border-emerald-500/30 bg-emerald-500/5">
-              <CardContent className="p-5 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-sm text-foreground">
-                    {onTrack.studentName}
-                  </span>
-                  <Badge variant="outline" className="border-emerald-500 text-emerald-600 dark:text-emerald-400 text-[10px]">
-                    Top Performer (88%)
-                  </Badge>
-                </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {onTrack.note.en}
-                </p>
-              </CardContent>
-            </Card>
+            <motion.div whileHover={{ scale: 1.01 }} transition={{ duration: 0.2 }}>
+              <Card className="border-emerald-500/30 bg-emerald-500/5">
+                <CardContent className="p-5 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-sm text-foreground">
+                      {onTrack.studentName}
+                    </span>
+                    <Badge variant="outline" className="border-emerald-500 text-emerald-600 dark:text-emerald-400 text-[10px]">
+                      Top Performer (88%)
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {onTrack.note.en}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </div>
-      </div>
-    </main>
+      </motion.div>
+    </motion.main>
   );
 }

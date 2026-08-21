@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion, type Variants } from "motion/react";
 import {
   getCurrentStudent,
   getMasteryTier,
@@ -39,10 +40,38 @@ export default function StudentDashboardPage() {
   const overallTier = getMasteryTier(avgScore);
   const avgPct = Math.round(avgScore * 100);
 
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.05,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4 },
+    },
+  };
+
   return (
-    <main className="max-w-6xl mx-auto px-6 py-8 space-y-8 pb-20">
+    <motion.main
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="max-w-6xl mx-auto px-6 py-8 space-y-8 pb-20"
+    >
       {/* Welcome Banner */}
-      <div className="rounded-2xl border border-border bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xs">
+      <motion.div
+        variants={itemVariants}
+        className="rounded-2xl border border-border bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xs"
+      >
         <div className="space-y-2">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-muted text-xs font-semibold text-muted-foreground">
             <Sparkles className="h-3.5 w-3.5 text-primary" />
@@ -58,99 +87,109 @@ export default function StudentDashboardPage() {
           </p>
         </div>
 
-        <Link href="/ask">
-          <Button className="h-11 px-5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-sm flex items-center gap-2.5 shadow-xs">
-            <SendHorizontal className="h-4 w-4" />
-            <span>Ask a New Doubt</span>
-          </Button>
-        </Link>
-      </div>
+        <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+          <Link href="/ask">
+            <Button className="h-11 px-5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-sm flex items-center gap-2.5 shadow-xs">
+              <SendHorizontal className="h-4 w-4" />
+              <span>Ask a New Doubt</span>
+            </Button>
+          </Link>
+        </motion.div>
+      </motion.div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Stat 1: Overall Mastery */}
-        <Card className="border-border bg-card">
-          <CardContent className="pt-5 pb-5 flex items-center gap-4">
-            <div className="h-11 w-11 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center flex-shrink-0">
-              <TrendingUp className="h-5 w-5 text-primary" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Overall Mastery
-              </p>
-              <div className="flex items-baseline gap-2 mt-0.5">
-                <span className="text-2xl font-bold tabular-nums">{avgPct}%</span>
-                {overallTier && (
-                  <Badge
-                    variant="outline"
-                    className="text-[10px] px-2 py-0 font-semibold capitalize"
-                    style={{ borderColor: overallTier.color, color: overallTier.color }}
-                  >
-                    {overallTier.label}
-                  </Badge>
-                )}
+        <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+          <Card className="border-border bg-card">
+            <CardContent className="pt-5 pb-5 flex items-center gap-4">
+              <div className="h-11 w-11 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center flex-shrink-0">
+                <TrendingUp className="h-5 w-5 text-primary" />
               </div>
-            </div>
-          </CardContent>
-        </Card>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Overall Mastery
+                </p>
+                <div className="flex items-baseline gap-2 mt-0.5">
+                  <span className="text-2xl font-bold tabular-nums">{avgPct}%</span>
+                  {overallTier && (
+                    <Badge
+                      variant="outline"
+                      className="text-[10px] px-2 py-0 font-semibold capitalize"
+                      style={{ borderColor: overallTier.color, color: overallTier.color }}
+                    >
+                      {overallTier.label}
+                    </Badge>
+                  )}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Stat 2: Doubts Solved */}
-        <Card className="border-border bg-card">
-          <CardContent className="pt-5 pb-5 flex items-center gap-4">
-            <div className="h-11 w-11 rounded-xl bg-secondary/15 border border-secondary/30 flex items-center justify-center flex-shrink-0">
-              <Brain className="h-5 w-5 text-secondary" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Doubts Solved
-              </p>
-              <div className="flex items-baseline gap-2 mt-0.5">
-                <span className="text-2xl font-bold tabular-nums">12</span>
-                <span className="text-xs text-muted-foreground">+3 this week</span>
+        <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+          <Card className="border-border bg-card">
+            <CardContent className="pt-5 pb-5 flex items-center gap-4">
+              <div className="h-11 w-11 rounded-xl bg-secondary/15 border border-secondary/30 flex items-center justify-center flex-shrink-0">
+                <Brain className="h-5 w-5 text-secondary" />
               </div>
-            </div>
-          </CardContent>
-        </Card>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Doubts Solved
+                </p>
+                <div className="flex items-baseline gap-2 mt-0.5">
+                  <span className="text-2xl font-bold tabular-nums">12</span>
+                  <span className="text-xs text-muted-foreground">+3 this week</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Stat 3: Practice Accuracy */}
-        <Card className="border-border bg-card">
-          <CardContent className="pt-5 pb-5 flex items-center gap-4">
-            <div className="h-11 w-11 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
-              <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Accuracy Rate
-              </p>
-              <div className="flex items-baseline gap-2 mt-0.5">
-                <span className="text-2xl font-bold tabular-nums">78%</span>
-                <span className="text-xs text-muted-foreground">MCQ practice</span>
+        <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+          <Card className="border-border bg-card">
+            <CardContent className="pt-5 pb-5 flex items-center gap-4">
+              <div className="h-11 w-11 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
+                <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
               </div>
-            </div>
-          </CardContent>
-        </Card>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Accuracy Rate
+                </p>
+                <div className="flex items-baseline gap-2 mt-0.5">
+                  <span className="text-2xl font-bold tabular-nums">78%</span>
+                  <span className="text-xs text-muted-foreground">MCQ practice</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Stat 4: Learning Streak */}
-        <Card className="border-border bg-card">
-          <CardContent className="pt-5 pb-5 flex items-center gap-4">
-            <div className="h-11 w-11 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center flex-shrink-0">
-              <Zap className="h-5 w-5 text-amber-600 dark:text-amber-400" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Learning Streak
-              </p>
-              <div className="flex items-baseline gap-2 mt-0.5">
-                <span className="text-2xl font-bold tabular-nums">5 Days</span>
-                <span className="text-xs text-muted-foreground">Active streak</span>
+        <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+          <Card className="border-border bg-card">
+            <CardContent className="pt-5 pb-5 flex items-center gap-4">
+              <div className="h-11 w-11 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center flex-shrink-0">
+                <Zap className="h-5 w-5 text-amber-600 dark:text-amber-400" />
               </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Learning Streak
+                </p>
+                <div className="flex items-baseline gap-2 mt-0.5">
+                  <span className="text-2xl font-bold tabular-nums">5 Days</span>
+                  <span className="text-xs text-muted-foreground">Active streak</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
 
       {/* Main Grid: Concept Mastery & Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Concept Mastery Breakdown (2 Cols) */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
@@ -203,10 +242,12 @@ export default function StudentDashboardPage() {
 
                     {/* Progress Bar Track */}
                     <div className="h-2.5 rounded-full bg-muted overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-300"
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${scorePct}%` }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="h-full rounded-full"
                         style={{
-                          width: `${scorePct}%`,
                           backgroundColor: tier?.color ?? "#3EC1D3",
                         }}
                       />
@@ -238,23 +279,24 @@ export default function StudentDashboardPage() {
             </CardHeader>
             <CardContent className="pb-5 space-y-3">
               {allDoubts.slice(0, 3).map((doubt) => (
-                <Link
-                  key={doubt.id}
-                  href="/ask"
-                  className="block p-3.5 rounded-xl border border-border bg-muted/30 hover:bg-muted/70 transition-colors"
-                >
-                  <p className="text-sm font-semibold text-foreground line-clamp-2 leading-snug mb-1.5">
-                    {doubt.doubtText.en}
-                  </p>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span className="font-medium text-primary">
-                      {doubt.detectedConcept.subConcept}
-                    </span>
-                    <Badge variant="outline" className="text-[10px] px-1.5 py-0 capitalize">
-                      {doubt.detectedConcept.difficulty}
-                    </Badge>
-                  </div>
-                </Link>
+                <motion.div key={doubt.id} whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
+                  <Link
+                    href="/ask"
+                    className="block p-3.5 rounded-xl border border-border bg-muted/30 hover:bg-muted/70 transition-colors"
+                  >
+                    <p className="text-sm font-semibold text-foreground line-clamp-2 leading-snug mb-1.5">
+                      {doubt.doubtText.en}
+                    </p>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground">
+                      <span className="font-medium text-primary">
+                        {doubt.detectedConcept.subConcept}
+                      </span>
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 capitalize">
+                        {doubt.detectedConcept.difficulty}
+                      </Badge>
+                    </div>
+                  </Link>
+                </motion.div>
               ))}
 
               <Link href="/ask" className="block pt-2">
@@ -266,7 +308,7 @@ export default function StudentDashboardPage() {
             </CardContent>
           </Card>
         </div>
-      </div>
-    </main>
+      </motion.div>
+    </motion.main>
   );
 }

@@ -1,0 +1,85 @@
+{
+  "_readme": "Mirrors the students + student_mastery tables from the hackathon PDF. currentStudentId is whichever mock student is 'logged in' — swap this for a real session/auth id later. masteryHistory feeds the progress trend chart.",
+
+  "currentStudentId": "student_001",
+
+  "students": [
+    {
+      "id": "student_001",
+      "name": "Priyam Das",
+      "grade": 8,
+      "preferredLanguage": "as",
+      "mastery": [
+        {
+          "conceptId": "concept_open_circuit",
+          "conceptName": "Open Circuit",
+          "score": 0.56,
+          "attempts": 5,
+          "lastAttempt": "2026-08-19T10:20:00Z",
+          "history": [0.42, 0.42, 0.50, 0.48, 0.56]
+        },
+        {
+          "conceptId": "concept_current",
+          "conceptName": "Current",
+          "score": 0.58,
+          "attempts": 4,
+          "lastAttempt": "2026-08-18T16:05:00Z",
+          "history": [0.40, 0.46, 0.52, 0.58]
+        },
+        {
+          "conceptId": "concept_conductors",
+          "conceptName": "Conductors and Insulators",
+          "score": 0.81,
+          "attempts": 6,
+          "lastAttempt": "2026-08-17T09:40:00Z",
+          "history": [0.60, 0.65, 0.70, 0.74, 0.78, 0.81]
+        },
+        {
+          "conceptId": "concept_friction",
+          "conceptName": "Friction",
+          "score": 0.25,
+          "attempts": 2,
+          "lastAttempt": "2026-08-15T11:00:00Z",
+          "history": [0.30, 0.25]
+        }
+      ],
+      "recentDoubts": [
+        { "doubtId": "doubt_bulb_open_circuit", "askedAt": "2026-08-19T10:15:00Z" },
+        { "doubtId": "doubt_bulb_brighter_cells", "askedAt": "2026-08-18T16:00:00Z" }
+      ]
+    },
+    {
+      "id": "student_002",
+      "name": "Ankita Bora",
+      "grade": 8,
+      "preferredLanguage": "en",
+      "mastery": [
+        { "conceptId": "concept_open_circuit", "conceptName": "Open Circuit", "score": 0.29, "attempts": 6, "lastAttempt": "2026-08-19T09:00:00Z", "history": [0.35, 0.31, 0.33, 0.29, 0.27, 0.29] },
+        { "conceptId": "concept_current", "conceptName": "Current", "score": 0.33, "attempts": 5, "lastAttempt": "2026-08-18T14:00:00Z", "history": [0.40, 0.38, 0.35, 0.34, 0.33] },
+        { "conceptId": "concept_conductors", "conceptName": "Conductors and Insulators", "score": 0.62, "attempts": 4, "lastAttempt": "2026-08-16T10:00:00Z", "history": [0.50, 0.55, 0.58, 0.62] }
+      ],
+      "recentDoubts": [
+        { "doubtId": "doubt_bulb_open_circuit", "askedAt": "2026-08-19T09:00:00Z" }
+      ]
+    },
+    {
+      "id": "student_003",
+      "name": "Rohit Saikia",
+      "grade": 8,
+      "preferredLanguage": "as",
+      "mastery": [
+        { "conceptId": "concept_open_circuit", "conceptName": "Open Circuit", "score": 0.88, "attempts": 7, "lastAttempt": "2026-08-19T08:30:00Z", "history": [0.70, 0.75, 0.80, 0.83, 0.85, 0.86, 0.88] },
+        { "conceptId": "concept_current", "conceptName": "Current", "score": 0.79, "attempts": 5, "lastAttempt": "2026-08-17T12:00:00Z", "history": [0.60, 0.66, 0.70, 0.75, 0.79] },
+        { "conceptId": "concept_friction", "conceptName": "Friction", "score": 0.71, "attempts": 3, "lastAttempt": "2026-08-14T09:00:00Z", "history": [0.55, 0.63, 0.71] }
+      ],
+      "recentDoubts": []
+    }
+  ],
+
+  "masteryTiers": [
+    { "min": 0, "max": 0.30, "label": "Needs Foundation", "color": "#e35d5d" },
+    { "min": 0.30, "max": 0.60, "label": "Developing", "color": "#e0a63d" },
+    { "min": 0.60, "max": 0.80, "label": "Good", "color": "#4d9de0" },
+    { "min": 0.80, "max": 1.00, "label": "Mastered", "color": "#3ba272" }
+  ]
+}

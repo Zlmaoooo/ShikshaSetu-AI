@@ -1,0 +1,53 @@
+{
+  "_readme": "Feeds /teacher/dashboard and /teacher/student/[id]. Reason + recommendedIntervention are the key differentiator from a normal 'low score' dashboard — always show them together, never the risk badge alone.",
+
+  "classId": "class_8_science_diksha",
+  "className": "Class 8 - Science (Section A)",
+
+  "classConceptMastery": [
+    { "conceptId": "concept_open_circuit", "conceptName": "Open Circuit", "averageScore": 0.58 },
+    { "conceptId": "concept_current", "conceptName": "Current", "averageScore": 0.57 },
+    { "conceptId": "concept_conductors", "conceptName": "Conductors and Insulators", "averageScore": 0.74 },
+    { "conceptId": "concept_friction", "conceptName": "Friction", "averageScore": 0.42 }
+  ],
+
+  "atRiskStudents": [
+    {
+      "studentId": "student_002",
+      "studentName": "Ankita Bora",
+      "riskLevel": "high",
+      "reason": {
+        "en": "5 recent errors in Open Circuit and Current, both stuck below 35% mastery. Repeatedly answers as if the battery itself stops producing electricity when the switch opens — a classic open-circuit misconception, not a knowledge gap.",
+        "as": "খোলা বৰ্তনী আৰু প্ৰবাহত শেহতীয়াকৈ ৫টা ভুল, দুয়োটাই ৩৫%তকৈ কম। চুইচ খোলা থাকিলে বেটেৰীয়ে কাম কৰা বন্ধ কৰে বুলি বাৰে বাৰে উত্তৰ দিয়ে — এইটো এটা সাধাৰণ ভুল ধাৰণা, জ্ঞানৰ অভাৱ নহয়।"
+      },
+      "misconceptionPattern": "battery-stops-working",
+      "recommendedIntervention": {
+        "en": "Use a visual circuit diagram showing the battery continuously producing charge, with the switch highlighted as the only broken link. Follow with 3 foundational open/closed circuit questions before returning to current-strength topics.",
+        "as": "বেটেৰীয়ে অবিৰতভাৱে আধান উৎপাদন কৰি থকা দেখুৱাই এখন দৃশ্যমান বৰ্তনী চিত্ৰ ব্যৱহাৰ কৰক, য'ত চুইচটোহে একমাত্ৰ ভাঙি যোৱা সংযোগ বুলি হাইলাইট কৰা হ'ব। তাৰ পিছত মূল খোলা/বন্ধ বৰ্তনী সম্পৰ্কীয় ৩টা প্ৰশ্নেৰে পুনৰাই অনুশীলন কৰাওক।"
+      }
+    },
+    {
+      "studentId": "student_001",
+      "studentName": "Priyam Das",
+      "riskLevel": "medium",
+      "reason": {
+        "en": "Friction mastery is low (25%) with only 2 attempts logged — not enough recent practice to tell if this is a misconception or simply an untouched topic.",
+        "as": "ঘৰ্ষণৰ দক্ষতা কম (২৫%) আৰু মাত্ৰ ২বাৰ চেষ্টা কৰা হৈছে — এইটো এটা ভুল ধাৰণা নে কেৱল অনুশীলন নকৰা বিষয় সেয়া ক'ব পৰা টান।"
+      },
+      "misconceptionPattern": "insufficient-data",
+      "recommendedIntervention": {
+        "en": "Assign 2-3 low-stakes friction warm-up questions to gather more evidence before flagging a specific misconception.",
+        "as": "নিৰ্দিষ্ট ভুল ধাৰণা চিহ্নিত কৰাৰ আগতে অধিক তথ্য সংগ্ৰহ কৰিবলৈ ২-৩টা কম-প্ৰভাৱী ঘৰ্ষণ প্ৰশ্ন প্ৰদান কৰক।"
+      }
+    }
+  ],
+
+  "onTrackHighlight": {
+    "studentId": "student_003",
+    "studentName": "Rohit Saikia",
+    "note": {
+      "en": "Consistent upward trend across all attempted concepts, Open Circuit now at 88% mastery. Good candidate for peer-tutoring open circuit topics.",
+      "as": "চেষ্টা কৰা সকলো বিষয়তে ধাৰাবাহিক উন্নতি, খোলা বৰ্তনীত এতিয়া ৮৮% দক্ষতা। খোলা বৰ্তনী বিষয়ত সমকক্ষ-শিক্ষণৰ বাবে ভাল প্ৰাৰ্থী।"
+    }
+  }
+}

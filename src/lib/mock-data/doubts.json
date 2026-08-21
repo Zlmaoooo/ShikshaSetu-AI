@@ -1,0 +1,232 @@
+{
+  "_readme": "Fixed set of pre-written doubts for the demo. UI should present these as clickable example doubts (chips/suggestions) on the /ask screen rather than fully freeform text matching. If a user types something not in this set, show the 'noMatch' fallback below. Shape mirrors what the real POST /api/doubt endpoint should eventually return, so backend swap-in later is a drop-in replacement — just fetch instead of import.",
+
+  "noMatchFallback": {
+    "en": "We're still building our knowledge base for this topic. For this demo, try one of the example doubts above!",
+    "as": "আমি এই বিষয়টোৰ বাবে জ্ঞান ভঁৰাল সাজি আছোঁ। এই ডেমোৰ বাবে ওপৰৰ উদাহৰণ প্ৰশ্নবোৰৰ এটা চেষ্টা কৰক!"
+  },
+
+  "doubts": [
+    {
+      "id": "doubt_bulb_open_circuit",
+      "doubtText": {
+        "en": "Why does a bulb not glow when the switch is open?",
+        "as": "চুইচ খোলা থাকিলে বাল্বটো কিয় নুজ্বলে?"
+      },
+      "conceptId": "concept_open_circuit",
+      "detectedConcept": {
+        "subject": "Science",
+        "concept": "Electric Circuit",
+        "subConcept": "Open Circuit",
+        "difficulty": "Beginner"
+      },
+      "sourceId": "source_diksha_circuits",
+      "explanation": {
+        "en": "A bulb glows only when electricity can flow all the way around a complete loop, called a circuit. A switch is like a gate in that loop. When the switch is open, there's a gap in the path, so electricity cannot flow — this is called an open circuit. No current reaches the bulb, so it stays dark. Close the switch, the gap closes, the loop is complete again, and the bulb glows.",
+        "as": "বাল্ব এটা তেতিয়াহে জ্বলে যেতিয়া বিদ্যুৎ এটা সম্পূৰ্ণ পথেৰে (বৰ্তনী) প্ৰবাহিত হ'ব পাৰে। চুইচ এটা এই পথৰ দুৱাৰৰ দৰে। চুইচ খোলা থাকিলে পথটোত ফাঁক এটা থাকে, সেয়েহে বিদ্যুৎ প্ৰবাহিত হ'ব নোৱাৰে — ইয়াকে খোলা বৰ্তনী বোলে। চুইচ বন্ধ কৰিলে পথটো সম্পূৰ্ণ হয় আৰু বাল্বটো জ্বলে।"
+      },
+      "diagnostic": {
+        "question": {
+          "en": "When the switch is open, what actually happens inside the circuit?",
+          "as": "চুইচ খোলা থাকিলে বৰ্তনীৰ ভিতৰত প্ৰকৃততে কি ঘটে?"
+        },
+        "options": [
+          { "id": "a", "text": { "en": "The battery stops producing electricity", "as": "বেটেৰীয়ে বিদ্যুৎ উৎপাদন বন্ধ কৰে" } },
+          { "id": "b", "text": { "en": "The path for electricity is broken", "as": "বিদ্যুতৰ পথটো ভাঙি যায়" } },
+          { "id": "c", "text": { "en": "The bulb runs out of power", "as": "বাল্বৰ শক্তি শেষ হৈ যায়" } }
+        ],
+        "correctOptionId": "b",
+        "misconceptions": {
+          "a": {
+            "en": "Common misconception: thinking the battery itself stops working. The battery keeps producing electricity the whole time — it's the path that's broken, not the source.",
+            "as": "সাধাৰণ ভুল ধাৰণা: বেটেৰীটোৱে কাম কৰা বন্ধ কৰিছে বুলি ভবা। বেটেৰীয়ে সদায় বিদ্যুৎ উৎপাদন কৰি থাকে — পথটোহে ভাঙি গৈছে, উৎসটো নহয়।"
+          },
+          "c": {
+            "en": "Common misconception: thinking the bulb 'runs out'. Bulbs don't store power — they only light up while current is actively flowing through them.",
+            "as": "সাধাৰণ ভুল ধাৰণা: বাল্বৰ শক্তি শেষ হয় বুলি ভবা। বাল্বই শক্তি জমা কৰি নাৰাখে — কেৱল প্ৰবাহ চলি থাকিলেহে জ্বলে।"
+          }
+        }
+      },
+      "practice": [
+        {
+          "question": { "en": "If you add a second switch in the same loop, when will the bulb glow?", "as": "একে পথতে দ্বিতীয় চুইচ এটা দিলে, বাল্বটো কেতিয়া জ্বলিব?" },
+          "options": [
+            { "id": "a", "text": { "en": "Only when both switches are closed", "as": "দুয়োটা চুইচ বন্ধ থাকিলেহে" } },
+            { "id": "b", "text": { "en": "When either switch is closed", "as": "যিকোনো এটা চুইচ বন্ধ থাকিলেই" } },
+            { "id": "c", "text": { "en": "It will always glow", "as": "সদায় জ্বলি থাকিব" } }
+          ],
+          "correctOptionId": "a",
+          "difficulty": "beginner"
+        },
+        {
+          "question": { "en": "Which of these keeps a circuit open (broken) on purpose?", "as": "এইবোৰৰ কোনটোৱে বৰ্তনীটো ইচ্ছাকৃতভাৱে খোলা ৰাখে?" },
+          "options": [
+            { "id": "a", "text": { "en": "A closed switch", "as": "বন্ধ চুইচ" } },
+            { "id": "b", "text": { "en": "A snapped wire", "as": "ছিঙি যোৱা তাঁৰ" } },
+            { "id": "c", "text": { "en": "A fresh battery", "as": "নতুন বেটেৰী" } }
+          ],
+          "correctOptionId": "b",
+          "difficulty": "beginner"
+        },
+        {
+          "question": { "en": "A bulb is glowing dimly, then goes fully dark. What's the most likely cause?", "as": "বাল্ব এটা কম পোহৰেৰে জ্বলি আছিল, তাৰ পিছত সম্পূৰ্ণ নুজ্বলিল। ইয়াৰ সম্ভাৱ্য কাৰণ কি?" },
+          "options": [
+            { "id": "a", "text": { "en": "The circuit fully broke somewhere", "as": "বৰ্তনীটো ক'ৰবাত সম্পূৰ্ণ ভাঙি গ'ল" } },
+            { "id": "b", "text": { "en": "The wire color changed", "as": "তাঁৰৰ ৰং সলনি হ'ল" } },
+            { "id": "c", "text": { "en": "The room got darker", "as": "কোঠাটো অন্ধকাৰ হ'ল" } }
+          ],
+          "correctOptionId": "a",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+
+    {
+      "id": "doubt_bulb_brighter_cells",
+      "doubtText": {
+        "en": "Why does the bulb glow brighter when I add more cells?",
+        "as": "অধিক চেল যোগ কৰিলে বাল্বটো কিয় বেছি উজ্জ্বলকৈ জ্বলে?"
+      },
+      "conceptId": "concept_current",
+      "detectedConcept": {
+        "subject": "Science",
+        "concept": "Electric Circuit",
+        "subConcept": "Current",
+        "difficulty": "Beginner"
+      },
+      "sourceId": "source_diksha_circuits",
+      "explanation": {
+        "en": "Each cell pushes electric current through the circuit. When you connect more cells the right way (positive to negative, in series), their push adds up, so more current flows through the bulb's filament each second. More current means the filament heats up more and glows brighter. Add too many cells, though, and the filament can overheat and burn out.",
+        "as": "প্ৰতিটো চেলে বৰ্তনীৰে বিদ্যুৎ প্ৰবাহ ঠেলি পঠায়। সঠিকভাৱে (ধনাত্মকৰ পৰা ঋণাত্মকলৈ) অধিক চেল সংযোগ কৰিলে তেওঁলোকৰ ঠেলা যোগ হয়, ফলত প্ৰতি ছেকেণ্ডত বাল্বৰ ফিলামেণ্টেৰে অধিক প্ৰবাহ যায়। অধিক প্ৰবাহে ফিলামেণ্ট অধিক গৰম কৰি বেছি উজ্জ্বলকৈ জ্বলায়। কিন্তু অত্যধিক চেল দিলে ফিলামেণ্ট গৰম হৈ পুৰি যাব পাৰে।"
+      },
+      "diagnostic": {
+        "question": {
+          "en": "What actually increases when you add more cells in series?",
+          "as": "শৃংখলাত অধিক চেল যোগ কৰিলে প্ৰকৃততে কি বৃদ্ধি পায়?"
+        },
+        "options": [
+          { "id": "a", "text": { "en": "The number of wires", "as": "তাঁৰৰ সংখ্যা" } },
+          { "id": "b", "text": { "en": "The current flowing through the circuit", "as": "বৰ্তনীৰে প্ৰবাহিত হোৱা কাৰেণ্ট" } },
+          { "id": "c", "text": { "en": "The size of the bulb", "as": "বাল্বৰ আকাৰ" } }
+        ],
+        "correctOptionId": "b",
+        "misconceptions": {
+          "a": {
+            "en": "Common misconception: confusing the number of components with the amount of current. Adding cells doesn't add wires — it increases the push (voltage) behind the same current path.",
+            "as": "সাধাৰণ ভুল ধাৰণা: উপাদানৰ সংখ্যা আৰু প্ৰবাহৰ পৰিমাণ মিহলি কৰা। চেল যোগ কৰিলে তাঁৰ নবাঢ়ে — একে পথতে প্ৰবাহৰ পিছফালৰ ঠেলা (ভ'ল্টেজ) বাঢ়ে।"
+          },
+          "c": {
+            "en": "Common misconception: thinking the bulb itself changes. The bulb stays the same — what changes is how much current passes through it.",
+            "as": "সাধাৰণ ভুল ধাৰণা: বাল্বটোৱেই সলনি হয় বুলি ভবা। বাল্বটো একেই থাকে — সলনি হয় ইয়াৰে কিমান প্ৰবাহ যায়।"
+          }
+        }
+      },
+      "practice": [
+        {
+          "question": { "en": "If two cells are connected the wrong way (facing each other), what happens?", "as": "দুটা চেল ভুলভাৱে (মুখামুখি) সংযোগ কৰিলে কি হয়?" },
+          "options": [
+            { "id": "a", "text": { "en": "They cancel out and the bulb may not glow", "as": "তেওঁলোকে ইজনে সিজনক নিষ্ক্ৰিয় কৰে আৰু বাল্ব নুজ্বলিব পাৰে" } },
+            { "id": "b", "text": { "en": "The bulb glows twice as bright", "as": "বাল্ব দুগুণ উজ্জ্বলকৈ জ্বলে" } },
+            { "id": "c", "text": { "en": "Nothing changes", "as": "একো সলনি নহয়" } }
+          ],
+          "correctOptionId": "a",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": { "en": "Adding too many cells in series can cause the bulb to:", "as": "শৃংখলাত বহুত বেছি চেল যোগ কৰিলে বাল্বৰ কি হ'ব পাৰে:" },
+          "options": [
+            { "id": "a", "text": { "en": "Burn out", "as": "পুৰি যাব পাৰে" } },
+            { "id": "b", "text": { "en": "Turn off completely", "as": "সম্পূৰ্ণকৈ বন্ধ হ'ব পাৰে" } },
+            { "id": "c", "text": { "en": "Change color permanently", "as": "স্থায়ীভাৱে ৰং সলনি হ'ব পাৰে" } }
+          ],
+          "correctOptionId": "a",
+          "difficulty": "beginner"
+        },
+        {
+          "question": { "en": "What stays constant no matter how many cells you add?", "as": "কিমান চেল যোগ কৰিলেও কি স্থিৰ থাকে?" },
+          "options": [
+            { "id": "a", "text": { "en": "The path the current must complete (the loop)", "as": "প্ৰবাহে সম্পূৰ্ণ কৰিব লগীয়া পথ (লুপ)" } },
+            { "id": "b", "text": { "en": "The brightness of the bulb", "as": "বাল্বৰ উজ্জ্বলতা" } },
+            { "id": "c", "text": { "en": "The amount of current", "as": "প্ৰবাহৰ পৰিমাণ" } }
+          ],
+          "correctOptionId": "a",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+
+    {
+      "id": "doubt_plastic_conductor",
+      "doubtText": {
+        "en": "Why doesn't a plastic spoon conduct electricity like a metal spoon?",
+        "as": "প্লাষ্টিকৰ চামুচে ধাতুৰ চামুচৰ দৰে বিদ্যুৎ কিয় পৰিবহন নকৰে?"
+      },
+      "conceptId": "concept_conductors",
+      "detectedConcept": {
+        "subject": "Science",
+        "concept": "Electric Circuit",
+        "subConcept": "Conductors and Insulators",
+        "difficulty": "Beginner"
+      },
+      "sourceId": "source_diksha_circuits",
+      "explanation": {
+        "en": "Materials that let electric current pass through them easily are called conductors — most metals, like the ones in a metal spoon, are good conductors because their structure lets electric charge move freely through them. Materials like plastic are insulators — their structure holds charge tightly in place, so current can't flow through. That's exactly why appliance handles and wire coatings are made of plastic: to stop current from passing where it shouldn't.",
+        "as": "যিবোৰ পদাৰ্থৰ মাজেৰে বিদ্যুৎ প্ৰবাহ সহজে যাব পাৰে সেইবোৰক পৰিবাহী বোলে — ধাতুৰ চামুচৰ দৰে বেছিভাগ ধাতু ভাল পৰিবাহী কিয়নো তেওঁলোকৰ গঠনে বৈদ্যুতিক আধানক মুক্তভাৱে চলাফুৰা কৰিবলৈ দিয়ে। প্লাষ্টিকৰ দৰে পদাৰ্থ অন্তৰক — ইয়াৰ গঠনে আধানক শক্তভাৱে ধৰি ৰাখে, সেয়েহে প্ৰবাহ যাব নোৱাৰে। এইকাৰণেই যন্ত্ৰৰ হাতল আৰু তাঁৰৰ আৱৰণ প্লাষ্টিকৰে তৈয়াৰী হয়।"
+      },
+      "diagnostic": {
+        "question": {
+          "en": "Why are wire coatings made of plastic instead of metal?",
+          "as": "তাঁৰৰ আৱৰণ ধাতুৰ পৰিবৰ্তে প্লাষ্টিকৰে কিয় তৈয়াৰী হয়?"
+        },
+        "options": [
+          { "id": "a", "text": { "en": "Plastic is cheaper to manufacture", "as": "প্লাষ্টিক সস্তা" } },
+          { "id": "b", "text": { "en": "Plastic doesn't let current pass through, keeping people safe", "as": "প্লাষ্টিকে প্ৰবাহ পাৰ হ'বলৈ নিদিয়ে, ফলত মানুহ সুৰক্ষিত থাকে" } },
+          { "id": "c", "text": { "en": "Plastic looks better than metal", "as": "প্লাষ্টিক ধাতুতকৈ ভাল দেখা যায়" } }
+        ],
+        "correctOptionId": "b",
+        "misconceptions": {
+          "a": {
+            "en": "Common misconception: assuming it's a cost or manufacturing choice rather than a safety property. The real reason is that plastic is an insulator and blocks current from reaching your hand.",
+            "as": "সাধাৰণ ভুল ধাৰণা: ই মূল্য বা উৎপাদনৰ পছন্দ বুলি ভবা। প্ৰকৃত কাৰণটো হ'ল প্লাষ্টিক অন্তৰক আৰু ই প্ৰবাহক হাতলৈ যাবলৈ বাধা দিয়ে।"
+          },
+          "c": {
+            "en": "Common misconception: attributing a safety-critical property to appearance. It's about the material's ability (or inability) to conduct, not how it looks.",
+            "as": "সাধাৰণ ভুল ধাৰণা: সুৰক্ষাৰ সৈতে জড়িত এটা বৈশিষ্ট্যক ৰূপৰ সৈতে সংযোগ কৰা। ই দেখাত কেনেকুৱা তাৰ ওপৰত নহয়, পদাৰ্থটোৱে প্ৰবাহিত কৰিব পাৰে নে নোৱাৰে তাৰ ওপৰত নিৰ্ভৰ কৰে।"
+          }
+        }
+      },
+      "practice": [
+        {
+          "question": { "en": "Which of these is the best conductor?", "as": "এইবোৰৰ কোনটো আটাইতকৈ ভাল পৰিবাহী?" },
+          "options": [
+            { "id": "a", "text": { "en": "Copper wire", "as": "তাম্ৰ তাঁৰ" } },
+            { "id": "b", "text": { "en": "Rubber band", "as": "ৰবাৰৰ বেণ্ড" } },
+            { "id": "c", "text": { "en": "Wooden ruler", "as": "কাঠৰ ৰুলাৰ" } }
+          ],
+          "correctOptionId": "a",
+          "difficulty": "beginner"
+        },
+        {
+          "question": { "en": "Why is it dangerous to touch a bare (uncoated) wire?", "as": "খোলা (আৱৰণহীন) তাঁৰ চুলে কিয় বিপদজনক?" },
+          "options": [
+            { "id": "a", "text": { "en": "Current can pass through your body, which is a conductor", "as": "প্ৰবাহ আপোনাৰ শৰীৰেৰে যাব পাৰে, যিটো এটা পৰিবাহী" } },
+            { "id": "b", "text": { "en": "It will make your skin change color", "as": "আপোনাৰ ছালৰ ৰং সলনি হ'ব" } },
+            { "id": "c", "text": { "en": "It is not actually dangerous", "as": "ই প্ৰকৃততে বিপদজনক নহয়" } }
+          ],
+          "correctOptionId": "a",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": { "en": "An insulator is a material that:", "as": "অন্তৰক এনে এক পদাৰ্থ যিয়ে:" },
+          "options": [
+            { "id": "a", "text": { "en": "Blocks the flow of electric current", "as": "বৈদ্যুতিক প্ৰবাহ বাধা দিয়ে" } },
+            { "id": "b", "text": { "en": "Speeds up the flow of current", "as": "প্ৰবাহৰ গতি বঢ়ায়" } },
+            { "id": "c", "text": { "en": "Stores electric current", "as": "বৈদ্যুতিক প্ৰবাহ জমা কৰি ৰাখে" } }
+          ],
+          "correctOptionId": "a",
+          "difficulty": "beginner"
+        }
+      ]
+    }
+  ]
+}

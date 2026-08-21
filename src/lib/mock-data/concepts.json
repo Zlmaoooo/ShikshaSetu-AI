@@ -1,0 +1,54 @@
+[
+  {
+    "id": "concept_electric_circuit",
+    "subject": "Science",
+    "name": "Electric Circuit",
+    "chapter": "Electric Circuits and Conductors",
+    "grade": 8,
+    "difficulty": "beginner"
+  },
+  {
+    "id": "concept_open_circuit",
+    "subject": "Science",
+    "name": "Open Circuit",
+    "chapter": "Electric Circuits and Conductors",
+    "grade": 8,
+    "difficulty": "beginner",
+    "parentConceptId": "concept_electric_circuit"
+  },
+  {
+    "id": "concept_current",
+    "subject": "Science",
+    "name": "Current",
+    "chapter": "Electric Circuits and Conductors",
+    "grade": 8,
+    "difficulty": "beginner",
+    "parentConceptId": "concept_electric_circuit"
+  },
+  {
+    "id": "concept_conductors",
+    "subject": "Science",
+    "name": "Conductors and Insulators",
+    "chapter": "Electric Circuits and Conductors",
+    "grade": 8,
+    "difficulty": "beginner",
+    "parentConceptId": "concept_electric_circuit"
+  },
+  {
+    "id": "concept_friction",
+    "subject": "Science",
+    "name": "Friction",
+    "chapter": "Force and Pressure",
+    "grade": 8,
+    "difficulty": "beginner"
+  },
+  {
+    "id": "concept_friction_types",
+    "subject": "Science",
+    "name": "Types of Friction",
+    "chapter": "Force and Pressure",
+    "grade": 8,
+    "difficulty": "intermediate",
+    "parentConceptId": "concept_friction"
+  }
+]

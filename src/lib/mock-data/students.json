@@ -78,8 +78,8 @@
 
   "masteryTiers": [
     { "min": 0, "max": 0.30, "label": "Needs Foundation", "color": "#e35d5d" },
-    { "min": 0.30, "max": 0.60, "label": "Developing", "color": "#e0a63d" },
-    { "min": 0.60, "max": 0.80, "label": "Good", "color": "#4d9de0" },
+    { "min": 0.30, "max": 0.60, "label": "Developing", "color": "#FF9A00" },
+    { "min": 0.60, "max": 0.80, "label": "Good", "color": "#3EC1D3" },
     { "min": 0.80, "max": 1.00, "label": "Mastered", "color": "#3ba272" }
   ]
 }
